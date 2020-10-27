@@ -1,0 +1,96 @@
+.flexContainer1 {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+.flexContainer2 {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 10;
+}
+.flexContainer3 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+
+.item3 {
+  width: 60%;
+  min-width: 620px;
+  margin: 20px;
+}
+
+.item4 {
+  width: 35%;
+  min-width: 620px;
+  margin: 20px;
+}
+
+#blackSidebar {
+  background-color: #000000;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: left;
+  flex-grow: 1;
+  max-width: 350px;
+}
+
+.markdownText {
+  margin-left: 3%;
+}
+
+.profileImage {
+  margin: 40px;
+  max-width: 200px;
+}
+
+.socialLogos {
+  margin: 10px;
+  max-width: 50px;
+}
+
+body {
+  font-size: 1em; /* currently ems cause chrome bug misinterpreting rems on body element */
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Montserrat";
+  color: #000000;
+}
+
+.headerContainer {
+  font-size: 1em;
+  font-weight: 400;
+  margin-left: 20px;
+}
+
+#tableExperience th,  #tableCertificates th{
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #FFFFFF;
+  background-color: #e30613;
+}
+#tableExperience td,  #tableCertificates td{
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-size: 0.9em;
+}
+
+a:link {
+  color: #FFFFFF;
+  font-weight: 400;
+}
+
+a:visited {
+  color: #808B96;
+  font-weight: 400;
+}
+
+a:hover {
+  color: #e30613;
+  font-weight: 400;
+}
+
+h1 {
+  color: #e30613;
+}
