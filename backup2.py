@@ -33,6 +33,9 @@ jobs = pd.read_csv(
 skills = pd.read_csv(
     os.path.join(APP_PATH, os.path.join("data", "skills.csv"))
 )
+skills_in_detail = pd.read_csv(
+    os.path.join(APP_PATH, os.path.join("data", "skills_in_detail.csv"))
+)
 
 skills=skills.sort_values(by='rating', ascending = False)
 
@@ -66,6 +69,7 @@ app.layout = html.Div([
                     **Surname:** Not Identified\n
                     **Phone #:** +42045845124575\n
                     **E-mail:** pikatchu@pikatchuemail.com\n
+                    **Highest Education:** BC in Statistics\n
                     """
                 ),
                 html.A(
@@ -130,54 +134,77 @@ app.layout = html.Div([
                     """
                 )
             ], className="headerContainer item2"),
-            html.Div([
-                html.Div([
-                    html.H2("Work Experience"),
-                    dt.DataTable(
-                        id='table-work-job',
-                        sort_action='native',
-                        style_cell={
-                            'padding': '15px',
-                            'width': 'auto',
-                            'textAlign': 'left'
-                        },
-                        columns=[{"name": i.title(), "id": i} for i in jobs.columns],
-                        data=jobs.to_dict("rows")
-                    ),
-                ], className="item3", id="tableExperience"),
-                html.Div([
-                    html.H2("Skills"),
+            dcc.Tabs([
+                dcc.Tab(label="Summary", children=[
                     html.Div([
-                        dcc.Dropdown(
-                            id='skills-dropdown',
-                            options=[{'label': i, 'value': i} for i in available_types],
-                            value=available_types[0]
-                        ),
-                        dcc.Graph(id="skills-graph")
-                    ], id="skills-graph-container"),
-                ], className="item4", id="tableSkills"),
-                html.Div([
-                    html.H2("Certificates"),
-                    dt.DataTable(
-                        id='table-cert',
-                        sort_action='native',
-                        style_cell={
-                            'padding': '15px',
-                            'width': 'auto',
-                            'textAlign': 'left'
-                        },
-                        columns=[{"name": i.title(), "id": i} for i in certifications.columns],
-                        data=certifications.to_dict("rows")
-                    ),
-                    html.P("Full list of certificates can be found on my Linkedin page."),
-                ], className="item3", id="tableCertificates"),
-                html.Div([
-                    html.H2("Hobbies"),
+                        html.Div([
+                            html.H2("Work Experience"),
+                            dt.DataTable(
+                                id='table-work-job',
+                                sort_action='native',
+                                style_cell={
+                                    'padding': '15px',
+                                    'width': 'auto',
+                                    'textAlign': 'left'
+                                },
+                                columns=[{"name": i.title(), "id": i} for i in jobs.columns],
+                                data=jobs.to_dict("rows")
+                            ),
+                        ], className="item3", id="tableExperience"),
+                        html.Div([
+                            html.H2("Skills"),
+                            html.Div([
+                                dcc.Dropdown(
+                                    id='skills-dropdown',
+                                    options=[{'label': i, 'value': i} for i in available_types],
+                                    value=available_types[0]
+                                ),
+                                dcc.Graph(id="skills-graph")
+                            ], id="skills-graph-container"),
+                        ], className="item4"),
+                        html.Div([
+                            html.H2("Certificates"),
+                            dt.DataTable(
+                                id='table-cert',
+                                sort_action='native',
+                                style_cell={
+                                    'padding': '15px',
+                                    'width': 'auto',
+                                    'textAlign': 'left'
+                                },
+                                columns=[{"name": i.title(), "id": i} for i in certifications.columns],
+                                data=certifications.to_dict("rows")
+                            ),
+                            html.P("Full list of certificates can be found on my Linkedin page."),
+                        ], className="item3", id="tableCertificates"),
+                        html.Div([
+                            html.H2("Hobbies"),
+                            html.Div([
+                                dcc.Graph(id="hobby-graph", figure=hobbies_fig)
+                            ], id="hobby-graph-container"),
+                        ], className="item4", id="tableHobbies"),
+                    ], className="flexContainer3 item2"),
+                ]),
+                dcc.Tab(label="Data Knowledge in Detail", children=[
                     html.Div([
-                        dcc.Graph(id="hobby-graph", figure=hobbies_fig)
-                    ], id="hobby-graph-container"),
-                ], className="item4", id="tableHobbies"),
-            ], className="flexContainer3 item2"),
+                        html.Div([
+                            html.H2("Skills in Detail"),
+                            dt.DataTable(
+                                id='table-exp',
+                                sort_action='native',
+                                style_data={'whiteSpace': 'pre-line'},
+                                style_cell={
+                                    'padding': '15px',
+                                    'width': 'auto',
+                                    'textAlign': 'left'
+                                },
+                                columns=[{"name": i.title(), "id": i} for i in skills_in_detail.columns],
+                                data=skills_in_detail.to_dict("records")
+                            ),
+                        ], className="item3", id="tableSkills"),
+                    ],  className="flexContainer3 item2")
+                ]),
+            ]),
         ], className="flexContainer2 item1"),
     ], className="flexContainer1")
 ])
