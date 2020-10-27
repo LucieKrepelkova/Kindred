@@ -63,14 +63,14 @@ body {
   margin-left: 20px;
 }
 
-#tableExperience th,  #tableCertificates th{
+#tableExperience th,  #tableCertificates th, #tableSkills th{
   font-family: 'Montserrat';
   font-weight: bold;
   font-size: 0.9em;
   color: #FFFFFF;
   background-color: #e30613;
 }
-#tableExperience td,  #tableCertificates td{
+#tableExperience td,  #tableCertificates td, #tableSkills td{
   font-family: 'Montserrat';
   font-weight: 400;
   font-size: 0.9em;
