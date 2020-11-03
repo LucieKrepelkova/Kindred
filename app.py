@@ -13,10 +13,11 @@ import plotly.graph_objs as go
 import plotly.express as px
 from dash.dependencies import Input, Output, State
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+# importing codes for pages
+import summary_page as sm
+import skills_detailed_page as sdp
 
 app = dash.Dash(__name__,
-    external_stylesheets=external_stylesheets,
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1.0"}
     ]
@@ -24,147 +25,142 @@ app = dash.Dash(__name__,
 
 APP_PATH = str(pathlib.Path(__file__).parent.resolve())
 
-certifications = pd.read_csv(
-    os.path.join(APP_PATH, os.path.join("data", "certifications.csv"))
-)
-hobbies = pd.read_csv(
-    os.path.join(APP_PATH, os.path.join("data", "hobbies.csv"))
-)
-jobs = pd.read_csv(
-    os.path.join(APP_PATH, os.path.join("data", "jobs.csv"))
-)
-skills = pd.read_csv(
-    os.path.join(APP_PATH, os.path.join("data", "skills.csv"))
-)
+skills = sm.import_data("skills.csv")
 
-available_types = skills['type'].unique()
+# creating a colors array to be used in the graphs
+colors_array = ['#e30613', '#000000', '#808B96', '#FFFFFF']
 
-
-colors_array = ['#00A9A4', '#F8B017', '#80D4D2', '#006562', '#F5911B', '#FCD88B']
-
+# custom layout for the graphs
 layout_custom = go.layout.Template(
     layout=go.Layout(titlefont=dict(size=24, color=colors_array[0]),
-                    legend=dict(orientation='h',y=-0.1)))
+                    legend=dict(orientation='h',y=1.1),
+                    autosize=True, font=dict(family='Montserrat')))
 
-hobbies_fig = px.scatter(
-    hobbies, x='hobby', y='frequency', size='importance',
-    color='type', color_discrete_sequence=colors_array)
-
-hobbies_fig.update_layout(
-    title='Hobbies',
-    transition_duration=500, template=layout_custom
-)
-
-hobbies_fig.update_xaxes(title_text = "")
-hobbies_fig.update_yaxes(title_text = "Frequency (times per week)")
+SUMMARY_PAGE = sm.render_summary_page()
+DETAILED_SKILLS_PAGE = sdp.render_detailed_skills()
 
 app.layout = html.Div([
-    html.Div(
-        className='column',
-        children=[html.Img(src=app.get_asset_url("profile.jpg")),
-        html.Div([
-            dcc.Markdown("""
-
-                **Name:** Pikatchu
-
-                **Surname:** Not Identified
-
-                **Phone #:** +42045845124575
-
-                **E-mail:** pikatchu@pikatchuemail.com
-
-                LinkedIn
-
-                GitHub
-                """)
-        ], style = {'color': '#FFFFFF'}),
-    ], style={
-        'backgroundColor': 'rgb(52, 73, 94)',
-        'padding': '10px 5px',
-        'width': '20%'
-    }),
     html.Div([
         html.Div([
+            html.Img(src=app.get_asset_url("profile.jpg"), className='profileImage'),
             html.Div([
-                dcc.Dropdown(
-                    id='skills-dropdown',
-                    options=[{'label': i, 'value': i} for i in available_types],
-                    value=available_types[0]
+                dcc.Markdown(
+                    # CHANGE YOUR INFO HERE-------------------------------------
+                    """
+                    **Name:** Pikatchu\n
+                    **Surname:** Not Identified\n
+                    **Phone #:** +42045845124575\n
+                    **E-mail:** pikatchu@pikatchuemail.com\n
+                    **Highest Education:** BC in Statistics\n
+                    """
                 ),
-                dcc.Graph(id='skills-graph')
-            ]),
-            html.Div([
-                dcc.Graph(
-                    id='hobbies-graph',
-                    figure=hobbies_fig
+                html.A(
+                    [html.Img(src=app.get_asset_url("LinkedIn-logo.png"), className='socialLogos')],
+                    title="LinkedIn",
+                    # CHANGE YOUR INFO HERE-------------------------------------
+                    href="https://www.linkedin.com/in/morta-vilkaite/",
+                    target="_blank"
+                ),
+                html.A(
+                    [html.Img(src=app.get_asset_url("github.png"), className='socialLogos')],
+                    title="Github",
+                    # CHANGE YOUR INFO HERE-------------------------------------
+                    href="https://github.com/MortaV",
+                    target="_blank"
+                ),
+                html.A(
+                    [html.Img(src=app.get_asset_url("kaggle.webp"), className='socialLogos')],
+                    title="Kaggle",
+                    # CHANGE YOUR INFO HERE-------------------------------------
+                    href="https://www.kaggle.com/forgetmenot",
+                    target="_blank"
+                ),
+                dcc.Markdown(
+                    """
+                    **Use cases**:
+                    """
+                ),
+                # CHANGE YOUR INFO HERE-----------------------------------------
+                html.A(
+                    ["1. Image Classifier"],
+                    title="Use case",
+                    href="https://github.com/MortaV/Udacity-Image-Classifier",
+                    target="_blank"
+                ),
+                html.P("\n"),
+                # CHANGE YOUR INFO HERE-----------------------------------------
+                html.A(
+                    ["2. Finding Donors - PCA and Classification"],
+                    title="Use case",
+                    href="https://github.com/MortaV/Udacity-Finding-Donors",
+                    target="_blank"
+                ),
+                html.P("\n"),
+                # CHANGE YOUR INFO HERE-----------------------------------------
+                html.A(
+                    ["3. Text Analysis for Disaster Response"],
+                    title="Use case",
+                    href="https://github.com/MortaV/Udacity_Disaster_Response",
+                    target="_blank"
+                ),
+                html.P("\n"),
+                # CHANGE YOUR INFO HERE-----------------------------------------
+                html.A(
+                    ["4. Customer Segmentation"],
+                    title="Use case",
+                    href="https://github.com/MortaV/Udacity-Customer-Segmentation",
+                    target="_blank"
                 )
-            ])
-        ], style={
-            'padding': '10px 5px',
-            'rowCount': 2
-        }),
+            ], className="markdownText"),
+        ], className='item1', id="blackSidebar"),
         html.Div([
             html.Div([
-                html.H2("Work Experience"),
-                dt.DataTable(
-                    id='table-work',
-                    style_cell={
-                        'padding': '15px',
-                        'width': 'auto',
-                        'textAlign': 'center'
-                    },
-                    columns=[{"name": i.title(), "id": i} for i in jobs.columns],
-                    data=jobs.to_dict("rows")
+                # CHANGE YOUR INFO HERE-----------------------------------------
+                html.H1("Data Analyst"),
+                dcc.Markdown(
+                    # CHANGE YOUR INFO HERE-------------------------------------
+                    """
+                    Some text here were the girls can higlight **the main things**
+                    about their career or what they are looking for.
+                    """
                 )
-            ], style={
-                'padding': '10px 5px'
-            }),
-            html.Div([
-                html.H2("Certifications"),
-                dt.DataTable(
-                    id='table-certifications',
-                    style_cell={
-                        'padding': '15px',
-                        'width': 'auto',
-                        'textAlign': 'center'
-                    },
-                    columns=[{"name": i.title(), "id": i} for i in certifications.columns],
-                    data=certifications.to_dict("rows")
-                )
-            ], style={
-                'padding': '10px 5px'
-            }),
-        ], style={
-            'padding': '10px 5px',
-            'rowCount': 2
-        })
-    ], style={
-        'padding': '10px 5px',
-        'columnCount': 2
-        })
-], style={'columnCount': 2})
+            ], className="headerContainer item2"),
+            dcc.Tabs([
+                SUMMARY_PAGE,
+                DETAILED_SKILLS_PAGE
+            ]),
+        ], className="flexContainer2 item1"),
+    ], className="flexContainer1")
+])
 
 @app.callback(
     Output('skills-graph', 'figure'),
     [Input('skills-dropdown', 'value')])
-def update_figure(selected_type):
+def update_skills(selected_type):
     filtered_df = skills[skills['type'] == selected_type]
     fig = go.Figure()
-    fig.add_trace(go.Bar(x=filtered_df["skills"], y=filtered_df["rating"],
-        marker=dict(color=colors_array[1], opacity=0.4)
+    fig.add_trace(
+        go.Bar(x=filtered_df["skills"], y=filtered_df["rating"],
+            text=filtered_df["rating"],
+            textposition="inside",
+            textfont=dict(
+                family="Montserrat",
+                size=20,
+                color="#FFFFFF"
+            ),
+        marker=dict(color=colors_array[1], opacity=0.6)
         )
     )
 
-    fig.update_layout(
-        title='Skills (out of 10)',
-        transition_duration=500, template=layout_custom,
+    fig.update_layout(transition_duration=500, template=layout_custom)
 
-    )
-    fig.update_xaxes(title_text = "Skill")
+    fig.update_xaxes(title_text = "")
 
     fig.update_yaxes(title_text = "Rating", range=[0, 10])
 
     return fig
+
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
