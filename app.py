@@ -39,6 +39,7 @@ layout_custom = go.layout.Template(
 SUMMARY_PAGE = sm.render_summary_page()
 DETAILED_SKILLS_PAGE = sdp.render_detailed_skills()
 
+# app structure
 app.layout = html.Div([
     html.Div([
         html.Div([
@@ -133,6 +134,7 @@ app.layout = html.Div([
     ], className="flexContainer1")
 ])
 
+# adding the callback for dropdown (skills graph)
 @app.callback(
     Output('skills-graph', 'figure'),
     [Input('skills-dropdown', 'value')])
@@ -159,8 +161,6 @@ def update_skills(selected_type):
     fig.update_yaxes(title_text = "Rating", range=[0, 10])
 
     return fig
-
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
