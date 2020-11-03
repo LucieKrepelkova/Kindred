@@ -18,6 +18,7 @@ APP_PATH = str(pathlib.Path(__file__).parent.resolve())
 def import_data(file_name):
     return pd.read_csv(os.path.join(APP_PATH, os.path.join("data", file_name)))
 
+# importing the data
 certifications = import_data("certifications.csv")
 hobbies = import_data("hobbies.csv")
 jobs = import_data("jobs.csv")

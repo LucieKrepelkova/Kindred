@@ -10,6 +10,7 @@ import plotly.graph_objs as go
 import plotly.express as px
 from dash.dependencies import Input, Output, State
 
+# importing the data
 skills_in_detail = pd.read_csv("data/skills_in_detail.csv")
 
 def render_detailed_skills():
