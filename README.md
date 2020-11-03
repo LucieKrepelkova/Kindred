@@ -16,10 +16,6 @@ The code generates the Dash App.
 
 ## How to use it
 
-You can have any additional folders or files in the directory, but please **don't store csv files and graphs**. Instead, store them on Google Drive or in the Kindred database and include the links. We have limited storage in here, so let's try to keep it clean :)
-
-If you forked this directory or just copied the files to your computer, you will still miss the folder called "folder_to_ignore". You can just create it on your computer in the same directory as this README.md file. In that new folder you can store all project related file or folders which shouldn't be pushed to the GitHub.
-
 If you want to run this project yourself, you can create a new environment in python and install all projects from the requirements.txt file.
 
 You can create a new environment like this:
@@ -32,7 +28,7 @@ And activate it:
 
 After both steps are done, you can install packages from requirements.txt:
 
-`pip install -r /path/to/requirements.txt`
+`pip install -r requirements.txt`
 
 ## Main contacts
 
@@ -56,12 +52,13 @@ Data: Kindred database (connector is in the code, credentials are needed)
 ## Requirements
 
 Python packages:
-- chart_studio==1.0.0
-- pandas==1.0.1
-- plotly==4.5.2
-- numpy==1.18.1
-- scipy==1.3.2
-- statsmodels==0.11.1
+- plotly==4.11.0
+- dash_core_components==1.12.1
+- dash_html_components==1.1.1
+- numpy==1.19.1
+- dash_table==4.10.1
+- dash==1.16.3
+- pandas==1.1.3
 
 ## Main files
 
