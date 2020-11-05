@@ -117,7 +117,7 @@ app.layout = html.Div([
         html.Div([
             html.Div([
                 # CHANGE YOUR INFO HERE-----------------------------------------
-                html.H1("Data Analyst"),
+                html.H1("Data Scientist"),
                 dcc.Markdown(
                     # CHANGE YOUR INFO HERE-------------------------------------
                     """
