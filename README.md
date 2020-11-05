@@ -19,27 +19,17 @@ The code generates the Dash App for your CV.
 If you want to run this project yourself, you need to:
 
 1. Fork this directory;
-2. Create a new environment in python and install all projects from the requirements.txt file.
-
-You can create a new environment like this:
-
-  `python -m venv env_name`
-
-And activate it:
-
-  `source env_name/bin/activate`
-
-After both steps are done, you can install packages from requirements.txt:
-
-  `pip install -r requirements.txt`
-
-If this doesn't work for you, you can just install all dash packages to your
-current environment with pip in the command line:
+2. Install (if not present) dash packages to your current environment with pip
+in the command line:
 
 `pip install plotly==4.11.0`
+
 `pip install dash==1.16.3`
+
 `pip install dash_core_components==1.12.1`
+
 `pip install dash_html_components==1.1.1`
+
 `pip install dash_table==4.10.1`
 
 3. Using terminal, run app.py file. You can do it by running `python app.py` in your
