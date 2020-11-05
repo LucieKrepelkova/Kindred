@@ -23,6 +23,8 @@ app = dash.Dash(__name__,
     ]
 )
 
+server = app.server
+
 APP_PATH = str(pathlib.Path(__file__).parent.resolve())
 
 skills = sm.import_data("skills.csv")
