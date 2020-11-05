@@ -23,15 +23,24 @@ If you want to run this project yourself, you need to:
 
 You can create a new environment like this:
 
-  `virtualenv -p python3 env_name`
+  `python -m venv env_name`
 
-  And activate it:
+And activate it:
 
   `source env_name/bin/activate`
 
-  After both steps are done, you can install packages from requirements.txt:
+After both steps are done, you can install packages from requirements.txt:
 
-`pip install -r requirements.txt`
+  `pip install -r requirements.txt`
+
+If this doesn't work for you, you can just install all dash packages to your
+current environment with pip in the command line:
+
+`pip install plotly==4.11.0`
+`pip install dash==1.16.3`
+`pip install dash_core_components==1.12.1`
+`pip install dash_html_components==1.1.1`
+`pip install dash_table==4.10.1`
 
 3. Using terminal, run app.py file. You can do it by running `python app.py` in your
 terminal. Please make sure that you are in the chechitas_dash_app on your terminal before you run it.
@@ -56,6 +65,9 @@ are marked like this:
 colours or font family in there. Font family will be called "font-family", colours will be called
 "backgroud-color" and "color" for background and text colours accordingly. The colours are in hex format,
 you can find the codes for the ones you like in here: https://htmlcolorcodes.com/ .
+
+If any of the changes are not visible in the app, hard restart your browser to make sure that
+you don't have it cashed.
 
 ## Main contacts
 
@@ -104,4 +116,5 @@ Python packages:
 ## How to deploy the app
 
 We are not showing you during the presentation how to deploy your app, but if you decide to,
-Plotly has a nice documentation in here: https://dash.plotly.com/deployment .
+Plotly has a nice documentation in here: https://dash.plotly.com/deployment . Our recommended way is with Heroku
+as it is an open source project and is free of charge.
